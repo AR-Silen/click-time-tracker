@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Session Log</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 16px; margin: 28px 0 8px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .toolbar select { width: auto; }
+    .wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    th { font-size: 12px; color: var(--muted); font-weight: 600; }
+    td.num, th.num { text-align: right; }
+    td.note { white-space: normal; min-width: 160px; }
+    .empty { color: var(--muted); padding: 16px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Session log</h1>
+
+  <div class="toolbar">
+    <label for="filter" style="margin:0">Project</label>
+    <select id="filter"><option value="">All projects</option></select>
+    <span style="flex:1"></span>
+    <button id="exportCsv">Export CSV</button>
+    <button id="exportJson">Export JSON</button>
+    <button id="importJson">Import JSON</button>
+    <input id="importFile" type="file" accept=".json" class="hidden" />
+  </div>
+
+  <h2>Summary per project</h2>
+  <div class="wrap">
+    <table>
+      <thead><tr>
+        <th>Project</th><th class="num">Sessions</th><th class="num">Total time</th>
+        <th class="num">Total clicks</th><th class="num">Avg time</th><th class="num">Avg clicks</th>
+        <th class="num">Clicks / min</th>
+      </tr></thead>
+      <tbody id="summary"></tbody>
+    </table>
+  </div>
+
+  <h2>Sessions</h2>
+  <div class="wrap">
+    <table>
+      <thead><tr>
+        <th>Started</th><th>Project</th><th>User</th><th class="num">Duration</th>
+        <th class="num">Clicks</th><th>Top sites</th><th>Note</th><th></th>
+      </tr></thead>
+      <tbody id="sessions"></tbody>
+    </table>
+  </div>
+  <p id="empty" class="empty hidden">No sessions logged yet. Open the extension popup, pick a project and press Start.</p>
+
+  <h2>Projects</h2>
+  <div class="toolbar" id="projectList"></div>
+</main>
+<script src="common.js"></script>
+<script src="log.js"></script>
+</body>
+</html>
